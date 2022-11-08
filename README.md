@@ -1,13 +1,34 @@
 ![CUDA](./CUDA_Logo.jpg)
-
-
-
 [CUDA TOLLKIT DOCUMENTATION](https://docs.nvidia.com/cuda/index.html) 
 - [Best Practices Guide](https://docs.nvidia.com/cuda/cuda-c-best-practices-guide/index.html)
 - [CUDA Runtime API](https://docs.nvidia.com/cuda/cuda-runtime-api/index.html)
 - [Nsight Systems](https://docs.nvidia.com/nsight-systems/index.html)
 
-
+Calculation formula of thread index:
+- grid 1D, block 1D \
+int threadId = blockIdx.x *blockDim.x + threadIdx.x;
+- grid 1D, block 2D \
+int threadId = blockIdx.x * blockDim.x * blockDim.y + threadIdx.y * blockDim.x + threadIdx.x;
+- grid 1D, block 3D \
+int threadId = blockIdx.x * blockDim.x * blockDim.y * blockDim.z + threadIdx.z * blockDim.y * blockDim.x + threadIdx.y * blockDim.x + threadIdx.x;
+- grid 2D, block 1D \
+int blockId = blockIdx.y * gridDim.x + blockIdx.x;
+int threadId = blockId * blockDim.x + threadIdx.x;
+- grid 2D, block 2D \
+int blockId = blockIdx.x + blockIdx.y * gridDim.x;
+int threadId = blockId * (blockDim.x * blockDim.y) + (threadIdx.y * blockDim.x) + threadIdx.x;
+- grid 2D, block 3D \
+int blockId = blockIdx.x + blockIdx.y * gridDim.x;
+int threadId = blockId * (blockDim.x * blockDim.y * blockDim.z) + (threadIdx.z * (blockDim.x * blockDim.y)) + (threadIdx.y * blockDim.x) + threadIdx.x;
+- grid 3D, block 1D \
+int blockId = blockIdx.x + blockIdx.y * gridDim.x + gridDim.x * gridDim.y * blockIdx.z;
+int threadId = blockId * blockDim.x + threadIdx.x;
+- grid 3D, block 2D \
+int blockId = blockIdx.x + blockIdx.y * gridDim.x + gridDim.x * gridDim.y * blockIdx.z;
+int threadId = blockId * (blockDim.x * blockDim.y) + (threadIdx.y * blockDim.x) + threadIdx.x;
+- grid 3D, block 3D \
+int blockId = blockIdx.x + blockIdx.y * gridDim.x + gridDim.x * gridDim.y * blockIdx.z;
+int threadId = blockId * (blockDim.x * blockDim.y * blockDim.z) + (threadIdx.z * (blockDim.x * blockDim.y)) + (threadIdx.y * blockDim.x) + threadIdx.x;
 
 # CUDA Environment is Spinning Up
 
